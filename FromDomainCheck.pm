@@ -11,7 +11,7 @@ my $MAIL_OK = 0;
 my $MAIL_SPAM = 1;
 my $ACTION_UNRESOLVABLE_HOSTNAME = $MAIL_OK; # if you want to drop these emails, set it to $MAIL_SPAM
 
-my %SPAMMER_IPS = (
+my %IP_BLACKLIST = (
     "1.2.3.4" => 1
 );
 
@@ -40,7 +40,7 @@ sub check_from_domain_ip {
 
   my $ip_address = inet_ntoa(inet_aton($from_domain));
 
-  if ($SPAMMER_IPS{$ip_address}) {
+  if ($IP_BLACKLIST{$ip_address}) {
     return $MAIL_SPAM;
   }
 
