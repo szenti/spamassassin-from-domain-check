@@ -1,0 +1,4 @@
+loadplugin FromDomainCheck FromDomainCheck.pm
+header FROM_DOMAIN_CHECK eval:check_from_domain_ip()
+score FROM_DOMAIN_CHECK 10
+describe FROM_DOMAIN_CHECK From domain name points to a spammer IP address
