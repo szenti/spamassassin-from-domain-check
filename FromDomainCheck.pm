@@ -12,7 +12,7 @@ my $MAIL_SPAM = 1;
 my $ACTION_UNRESOLVABLE_HOSTNAME = $MAIL_OK; # if you want to drop these emails, set it to $MAIL_SPAM
 
 my %IP_BLACKLIST = (
-    "1.2.3.4" => 1
+    "185.140.110.3" => 1
 );
 
 our @ISA = qw(Mail::SpamAssassin::Plugin);
