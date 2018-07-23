@@ -1,7 +1,6 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use 5.018;
 
 package FromDomainCheck;
 use Mail::SpamAssassin::Plugin;
@@ -12,7 +11,10 @@ my $MAIL_SPAM = 1;
 my $ACTION_UNRESOLVABLE_HOSTNAME = $MAIL_OK; # if you want to drop these emails, set it to $MAIL_SPAM
 
 my %IP_BLACKLIST = (
-    "185.140.110.3" => 1
+    "185.140.110.3" => 1,
+    "185.207.11.245" => 1,
+    "185.207.8.246" => 1,
+    "174.129.25.170" => 1
 );
 
 our @ISA = qw(Mail::SpamAssassin::Plugin);
