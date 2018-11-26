@@ -12,6 +12,7 @@ my $ACTION_UNRESOLVABLE_HOSTNAME = $MAIL_OK; # if you want to drop these emails,
 
 my %IP_BLACKLIST = (
     "185.140.110.3" => 1,
+    "185.207.8.14" => 1,
     "185.207.11.245" => 1,
     "185.207.8.246" => 1,
     "174.129.25.170" => 1
