@@ -9,6 +9,7 @@ use Socket qw(inet_aton inet_ntoa);
 my $MAIL_OK = 0;
 my $MAIL_SPAM = 1;
 my $ACTION_UNRESOLVABLE_HOSTNAME = $MAIL_OK; # if you want to drop these emails, set it to $MAIL_SPAM
+my $DOMAIN_PATTERN = q"\@([\d\w\-\.]+)";
 
 my %IP_BLACKLIST = (
     "185.140.110.3" => 1,
@@ -31,17 +32,23 @@ sub new {
   return $self;
 }
 
+sub resolve_domain_to_ip {
+  my ($domain) = @_;
+  return inet_ntoa(inet_aton($domain));
+}
+
 sub check_from_domain_ip {
-  my ($self, $msg) = @_;
-  my $check_from = lc($msg->get('From:addr'));
+  my ($self, $message) = @_;
+  my $from_address = lc($message->get('From:addr'));
 
-
-  $check_from =~ /\@(.*)$/;
+  $from_address =~ /$DOMAIN_PATTERN/;
   my $from_domain = $1;
 
-  gethostbyname($from_domain) or return $ACTION_UNRESOLVABLE_HOSTNAME;
+  if (!gethostbyname($from_domain)) {
+    return $ACTION_UNRESOLVABLE_HOSTNAME;
+  }
 
-  my $ip_address = inet_ntoa(inet_aton($from_domain));
+  my $ip_address = resolve_domain_to_ip($from_domain);
 
   if ($IP_BLACKLIST{$ip_address}) {
     return $MAIL_SPAM;
@@ -50,4 +57,4 @@ sub check_from_domain_ip {
   return $MAIL_OK;
 }
 
-1;
+1; # required by perl
