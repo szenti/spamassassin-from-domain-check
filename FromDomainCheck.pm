@@ -43,7 +43,7 @@ sub get_from_domain {
 
 sub is_ip_blacklisted {
   my ($ip_address) = @_;
-  return IP_BLACKLIST{$ip_address} == 1;
+  return 1 if exists $IP_BLACKLIST{$ip_address};
 }
 
 sub check_from_domain_ip {
